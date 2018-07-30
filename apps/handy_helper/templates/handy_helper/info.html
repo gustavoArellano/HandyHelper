@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+    <head>
+        <title>User Info</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'handy_helper/css/info.css' %}">
+    </head>
+    <body> 
+        <h3> <a href='/welcome'>Back</a> <a href='/logout'>Logout</a></h3>
+
+      
+        <h3>{{show_job_info.name}}</h3> 
+
+        <div class='box'>
+            <p>{{show_job_info.description}}</p>
+
+            <p>Location: {{show_job_info.location}}</p>
+
+            <p>Posted by: {{show_job_info.created_by_user.first_name}} {{show_job_info.created_by_user.last_name}}</p>
+
+            <p>Posted on: {{show_job_info.created_at}}</p>     
+        </div>
+       
+    </body>
+</html>

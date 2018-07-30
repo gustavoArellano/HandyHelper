@@ -1,0 +1,10 @@
+input.box{
+    display:block; 
+    width: 150px; 
+    height: 20px
+}
+input.submit{
+    font-size: 15px; 
+    border-radius: 5px; 
+    padding:5px
+}

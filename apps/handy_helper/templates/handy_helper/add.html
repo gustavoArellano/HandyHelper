@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+    <head>
+        <title>User Edit</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'handy_helper/css/add.css' %}">
+    </head>
+    <body>  
+
+        <h3> <a href='/welcome'>Back</a> <a href='/logout'>Logout</a></h3>
+        <h3>Add A Job</h3> 
+
+        {% if messages %}
+            {% for message in messages %}
+                <p>{{message}}</p>
+            {% endfor %}
+        {% endif %}
+
+        <form action='/create_job_process' method='POST'>
+            {% csrf_token %}
+            Title: <input class='box' type="text" name="name">
+            <br>
+            Description: <br><textarea name="description" id="description" cols="30" rows="10"></textarea>
+            <br>
+            Location: <input class='box' type="text" name='location'>
+            <br>
+            <input class='submit' type="submit" name='submit' value="Submit">
+        </form>
+    </body>
+</html>

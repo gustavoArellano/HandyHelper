@@ -1,0 +1,13 @@
+h1{
+    margin-left:20px;
+}
+.register{
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 60px;
+}
+.login{
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 60px;
+}

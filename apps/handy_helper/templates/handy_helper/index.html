@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Login and Registration</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'handy_helper/css/index.css' %}">
+    </head>
+
+    <body>
+
+        <div class="register">
+            <form style="display:block" action="/registration_process" method="POST">
+                {% if messages %}
+                    {% for message in messages %}
+                        <p>{{message}}</p>
+                    {% endfor %}
+                {% endif %}
+
+                {% csrf_token %}
+
+                <h3>Register</h3>
+
+                First Name:
+
+                <input style="display:block; width: 350px; height: 20px" type="text" name="first_name">
+
+                <br>
+
+                Last Name:
+    
+                <input style="display:block; width: 350px; height: 20px" type="text" name="last_name">
+                
+                <br>
+
+                Email:
+    
+                
+                <input id="email" name="email" type="text" style="display:block; width: 350px; height: 20px">
+
+                <br>
+
+                Password:
+
+                <input style="display:block; width: 350px; height: 20px" type="password" name="password">
+
+                <br>
+
+                Confirm Password:
+
+                <input style="display:block; width: 350px; height: 20px" type="password" name="confirm_password">
+
+                <br>
+
+                <input type="submit" name='register' value="REGISTER!" style="font-size: 15px; border-radius: 5px; padding:5px">
+
+            </form>
+        </div>
+    
+        <div class="login">
+            <form style="display:block" action="/login" method="POST"> 
+
+                {% csrf_token %}
+                <h3>Login</h3>
+                Email:<input style="display:block; width: 350px; height: 20px" type="text" name="login_email">
+                <br>
+                Password:<input style="display:block; width: 350px; height: 20px" type="password" name="login_password">
+                <br>
+                <input type="submit" name='login' value="LOGIN!" style="font-size: 15px; border-radius: 5px; padding:5px">
+
+            </form>
+        </div>
+    </body>
+</html>

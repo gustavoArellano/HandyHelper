@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Welcome</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'handy_helper/css/welcome.css' %}">
+    </head>
+    <body>  
+        <h4>Welcome {{request.session.first_name}}!  <a href='/logout'>Logout</a></h4>
+
+        <h5><a href='/create_job'>Add A Job</a></h5>
+
+        
+        <div class='table1'>
+            <table>
+                <tr>
+                    <th>Description</th>
+                    <th>Location</th>
+                    <th>Action</th>
+                </tr>
+
+                {% for job in jobs %}
+                    {% if job.users_doing_job == NULL %}
+                        <tr>
+                            <td>{{job.name}}</td>
+                            <td>{{job.location}}</td>
+                            <td>
+
+                                <form action="/show_job_info/{{job.id}}" method='POST'>
+                                    {% csrf_token %}
+                                    <input type='hidden' name='show_job_info' value="{{job.id}}">
+                                    <input type="submit" value="VIEW">
+                                </form>
+                                
+
+                                <form action="/add_job_to_user/{{job.id}}" method='POST'>
+                                    {% csrf_token %}
+                                    <input type='hidden' name='add_job_to_user' value="{{job.id}}">
+                                    <input type="submit" value="ADD">
+                                </form>
+
+
+                                {% if request.session.logged_in == job.created_by_user.id %}
+                                    <form action="/edit_job/{{job.id}}" method='POST'>
+                                        {% csrf_token %}
+                                        <input type='hidden' name='edit' value="{{job.id}}">
+                                        <input type="submit" value="EDIT">
+                                    </form>
+
+
+                                    <form action="/delete_job/{{job.id}}" method='POST'>
+                                        {% csrf_token %}
+                                        <input type='hidden' name='delete' value="{{job.id}}">
+                                        <input type="submit" value="CANCEL">
+                                    </form>
+                                {% endif %} 
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </table>
+        </div>
+
+
+
+        <div class='table2'>
+            <table>
+                <tr>
+                    <th>My Jobs ...</th>
+                </tr>
+
+                {% for job in jobs %}
+                {% if request.session.logged_in == job.users_doing_job.id %}
+                <tr>
+                    <td>{{job.name}}</td>
+                   
+                    
+                    <td>
+                        <form action="/show_job_info/{{job.id}}" method='POST'>
+                            {% csrf_token %}
+                            <input type='hidden' name='show_job_info' value="{{job.id}}">
+                            <input type="submit" value="VIEW">
+                        </form>
+                    </td>
+
+                    <td>
+                        
+                        <form action="/delete_job/{{job.id}}" method='POST'>
+                            {% csrf_token %}
+                            <input type='hidden' name='delete' value="{{job.id}}">
+                            <input type="submit" value="DONE">
+                        </form>
+                    </td>  
+                      
+                </tr>
+                {% endif %}
+                {% endfor %} 
+            </table>
+        </div>
+    </body>
+</html>

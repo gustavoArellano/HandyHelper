@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+    <head>
+        <title>User Edit</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'handy_helper/css/edit.css' %}">
+    </head>
+    <body>  
+
+        <h3> <a href='/welcome'>Back</a> <a href='/logout'>Logout</a></h3>
+        <h3>Edit Job</h3> 
+
+        {% if messages %}
+            {% for message in messages %}
+                <p>{{message}}</p>
+            {% endfor %}
+        {% endif %}
+      
+        <form action='/update/{{display_info.id}}' method='POST'>
+            {% csrf_token %}
+            Title: <input class='box' type="text" name="name" value='{{display_info.name}}'>
+            <br>
+            Description: <br><textarea name="description" id="description" cols="30" rows="10">{{display_info.description}}</textarea>
+            <br>
+            Location: <input class='box' type="text" name='location' value='{{display_info.location}}'>
+            <br>
+            <input type='hidden' name='update' value="{{display_info.id}}">
+            <input class='submit' type="submit" name='update' value="Update">
+        </form>
+     
+    </body>
+</html>
